@@ -1,156 +1,45 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>ltq.myday</title>
+    <meta charset="UTF-8"><title>ltq.myday</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Be Vietnam Pro', sans-serif; }
-
-        body {
-            background-color: #f8faf7;
-            background-image: linear-gradient(#e2eee6 1px, transparent 1px), linear-gradient(90deg, #e2eee6 1px, transparent 1px);
-            background-size: 24px 24px;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 850px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* Banner */
-        .banner {
-            position: relative;
-            background: rgba(255, 255, 255, 0.92);
-            border: 2px dashed #b8dfc8;
-            border-radius: 20px;
-            padding: 28px 20px 18px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.015);
-        }
+        body { background-color: #f8faf7; background-image: linear-gradient(#e2eee6 1px, transparent 1px), linear-gradient(90deg, #e2eee6 1px, transparent 1px); background-size: 24px 24px; padding: 40px 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 20px; }
+        .banner { position: relative; background: rgba(255, 255, 255, 0.92); border: 2px dashed #b8dfc8; border-radius: 20px; padding: 28px 20px 18px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.015); }
         .banner h1 { color: #2b5742; font-size: 28px; font-weight: 700; margin-bottom: 6px; }
         .banner p { color: #6b8275; font-size: 13.5px; }
         .banner-icons { margin-top: 10px; color: #fca8ba; font-size: 12px; letter-spacing: 4px; }
-        .decoration-corner-left, .decoration-corner-right { position: absolute; color: #88c4a0; font-size: 18px; opacity: 0.8; transition: 0.3s; }
-        .decoration-corner-left { top: 16px; left: 20px; } 
-        .decoration-corner-right { bottom: 16px; right: 20px; }
-
-        /* Time Widget */
+        .dec-l, .dec-r { position: absolute; color: #88c4a0; font-size: 18px; opacity: 0.8; }
+        .dec-l { top: 16px; left: 20px; } .dec-r { bottom: 16px; right: 20px; }
         .time-widget { display: grid; grid-template-columns: 210px 1fr; gap: 18px; }
-        .calendar-card {
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid #dbeee2;
-            border-radius: 18px;
-            overflow: hidden;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.015);
-        }
-        .calendar-header { background: #b8dfc8; color: #2b5742; font-size: 13px; font-weight: 700; padding: 8px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .calendar-card { background: rgba(255, 255, 255, 0.95); border: 1px solid #dbeee2; border-radius: 18px; overflow: hidden; text-align: center; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.015); }
+        .calendar-header { background: #b8dfc8; color: #2b5742; font-size: 13px; font-weight: 700; padding: 8px 0; text-transform: uppercase; }
         .calendar-body { padding: 15px 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
         .solar-day { font-size: 46px; font-weight: 700; color: #2b5742; line-height: 1; }
         .solar-month-year { font-size: 12px; color: #6b8275; margin-top: 4px; font-weight: 500; }
         .lunar-box { margin-top: 10px; padding-top: 8px; border-top: 1px dashed #e4f2e9; font-size: 12px; color: #d17b88; font-weight: 600; }
-
-        .clock-weather-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(237,247,240,0.85));
-            border: 1px solid #dbeee2;
-            border-radius: 18px;
-            padding: 22px 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.015);
-        }
+        .clock-weather-card { background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(237,247,240,0.85)); border: 1px solid #dbeee2; border-radius: 18px; padding: 22px 25px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.015); }
         .clock-top { display: flex; justify-content: space-between; align-items: center; }
         .live-clock { font-size: 38px; font-weight: 700; color: #2b5742; letter-spacing: 2px; }
         .weather-pill { background: #fff; border: 1px solid #b8dfc8; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #436352; font-weight: 500; }
-        .greeting-section { display: flex; align-items: center; gap: 12px; color: #456654; font-size: 14px; font-weight: 600; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e4f2e9; line-height: 1.4; }
-        .greeting-icon { font-size: 20px; }
-
-        /* Tool Section Bỏ Toàn Bộ Viền Ngoại */
-        .tools-section {
-            margin-top: 5px;
-        }
-
-        .tools-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 18px;
-            font-weight: 700;
-            color: #2b5742;
-            margin-bottom: 16px;
-            padding-left: 4px;
-        }
-
-        .tools-grid {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        /* Nút Tool Trần (Chỉ giữ khối Aa và Chữ) */
-        .tool-bare-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.2s ease;
-        }
-
-        .tool-bare-item:hover {
-            transform: translateY(-3px);
-        }
-
-        .tool-icon-box {
-            width: 64px;
-            height: 64px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1.5px solid #a8dbc0;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            color: #2b5742;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            margin-bottom: 10px;
-        }
-
-        .tool-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: #2b5742;
-            text-align: center;
-        }
+        .greeting-section { display: flex; align-items: center; gap: 12px; color: #456654; font-size: 14px; font-weight: 600; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e4f2e9; }
+        .tools-section { margin-top: 5px; }
+        .tools-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: #2b5742; margin-bottom: 16px; }
+        .tool-bare-item { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.2s; }
+        .tool-bare-item:hover { transform: translateY(-3px); }
+        .tool-icon-box { width: 64px; height: 64px; background: rgba(255, 255, 255, 0.9); border: 1.5px solid #a8dbc0; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #2b5742; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .tool-name { font-size: 14px; font-weight: 700; color: #2b5742; }
     </style>
 </head>
 <body>
-
 <div class="container">
-
-    <!-- Banner -->
     <div class="banner">
-        <div class="decoration-corner-left">✦</div>
-        <div class="decoration-corner-right">✦</div>
-        <h1>ltq.myday</h1>
-        <p>Web lộn xộn xà bần</p>
+        <div class="dec-l">✦</div><div class="dec-r">✦</div>
+        <h1>ltq.myday</h1><p>Web lộn xộn xà bần</p>
         <div class="banner-icons">✦ ♡ ✦ ♡ ✦</div>
     </div>
-
-    <!-- Time Widget -->
     <div class="time-widget">
         <div class="calendar-card">
             <div class="calendar-header" id="dayOfWeek">Thứ Hai</div>
@@ -166,65 +55,40 @@
                 <div class="weather-pill" id="weatherVal">🌤️ Nắng nhẹ <b>29°C</b></div>
             </div>
             <div class="greeting-section">
-                <span class="greeting-icon" id="greetIcon">🌱</span>
+                <span id="greetIcon" style="font-size:20px;">🌱</span>
                 <span id="greetingText">Thứ hai là ngày đầu tuần, bé hứa cố gắng chăm ngoan...</span>
             </div>
         </div>
     </div>
-
-    <!-- Khu vực Tool -->
     <div class="tools-section">
-        <div class="tools-title">
-            <span>⚙️</span> tool
-        </div>
-        
-        <div class="tools-grid">
-            <!-- Nút Aa đơn giản không ô bọc bên ngoài -->
-            <div class="tool-bare-item" onclick="alert('Tính năng chuyển đổi kiểu chữ!')">
-                <div class="tool-icon-box">Aa</div>
-                <div class="tool-name">Chuyển đổi kiểu chữ</div>
-            </div>
+        <div class="tools-title"><span>⚙️</span> tool</div>
+        <div class="tool-bare-item" onclick="alert('Tính năng chuyển đổi kiểu chữ!')">
+            <div class="tool-icon-box">Aa</div>
+            <div class="tool-name">Chuyển đổi kiểu chữ</div>
         </div>
     </div>
-
 </div>
-
 <script>
     function updateClock() {
-        const now = new Date(), days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"], idx = now.getDay();
+        var now = new Date(), days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"], idx = now.getDay();
         document.getElementById('dayOfWeek').innerText = days[idx];
         document.getElementById('solarDay').innerText = String(now.getDate()).padStart(2, '0');
-        document.getElementById('solarMonthYear').innerText = `Tháng ${String(now.getMonth() + 1).padStart(2, '0')}, ${now.getFullYear()}`;
-        document.getElementById('clockVal').innerText = `String(now.getHours()).padStart(2,'0'):{String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-        
-        const gt = document.getElementById('greetingText'), gi = document.getElementById('greetIcon');
-        if (idx === 1) { gi.innerText = "🌱"; gt.innerText = "Thứ hai là ngày đầu tuần, bé hứa cố gắng chăm ngoan!"; }
-        else if (idx >= 2 && idx <= 4) { gi.innerText = "💪"; gt.innerText = "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!"; }
-        else if (idx === 5 || idx === 6) { gi.innerText = "💮"; gt.innerText = "Thứ sáu rồi đến thứ bảy, cô cho bé phiếu \"Bé Ngoan\"!"; }
-        else { gi.innerText = "🎉"; gt.innerText = "Chủ nhật cả nhà đều vui, vì bé ngoan suốt tuần!"; }
+        document.getElementById('solarMonthYear').innerText = "Tháng " + String(now.getMonth() + 1).padStart(2, '0') + ", " + now.getFullYear();
+        document.getElementById('clockVal').innerText = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0') + ":" + String(now.getSeconds()).padStart(2, '0');
+        var gt = document.getElementById('greetingText'), gi = document.getElementById('greetIcon');
+        var msgs = ["Chủ nhật cả nhà đều vui, vì bé ngoan suốt tuần!", "Thứ hai là ngày đầu tuần, bé hứa cố gắng chăm ngoan!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ sáu rồi đến thứ bảy, cô cho bé phiếu \"Bé Ngoan\"!", "Thứ sáu rồi đến thứ bảy, cô cho bé phiếu \"Bé Ngoan\"!"];
+        var icons = ["🎉", "🌱", "💪", "💪", "💪", "💮", "💮"];
+        gi.innerText = icons[idx]; gt.innerText = msgs[idx];
     }
     setInterval(updateClock, 1000); updateClock();
-
-    function getVietnameseLunarDate(d, m, y) {
-        if (y === 2026 && m === 8 && d === 24) return "12/7 năm Bính Ngọ";
-        const INT = Math.floor, a = INT((14 - m) / 12), y1 = y + 4800 - a, m1 = m + 12 * a - 3;
-        let jd = d + INT((153 * m1 + 2) / 5) + 365 * y1 + INT(y1 / 4) - INT(y1 / 100) + INT(y1 / 400) - 32045;
-        let k = INT((jd - 2451592) / 29.530588853), lDay = INT(jd - 2451592 - k * 29.530588853) + 1;
-        if (lDay <= 0) lDay += 30;
-        return `lDay/{((m + 4) % 12) + 1} năm Bính Ngọ`;
-    }
-    const today = new Date();
-    document.getElementById('lunarDate').innerText = `🌙 ${getVietnameseLunarDate(today.getDate(), today.getMonth() + 1, today.getFullYear())}`;
-
     function fetchWeather(lat, lon) {
-        fetch(`https://api.open-meteo.com/v1/forecast?latitude=lat&longitude={lon}&current_weather=true`)
-            .then(r => r.json()).then(d => {
-                const c = d.current_weather.weathercode, desc = c === 0 ? "☀️ Nắng quang" : c <= 3 ? "⛅ Có mây" : c <= 55 ? "🌧️ Mưa phùn" : "🌤️ Thời tiết đẹp";
-                document.getElementById('weatherVal').innerHTML = `desc<b>{Math.round(d.current_weather.temperature)}°C</b>`;
-            }).catch(() => { document.getElementById('weatherVal').innerHTML = "🌤️ Nắng nhẹ <b>29°C</b>"; });
+        fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current_weather=true")
+            .then(function(r) { return r.json(); }).then(function(d) {
+                var c = d.current_weather.weathercode, desc = c === 0 ? "☀️ Nắng quang" : c <= 3 ? "⛅ Có mây" : "🌤️ Thời tiết đẹp";
+                document.getElementById('weatherVal').innerHTML = desc + " <b>" + Math.round(d.current_weather.temperature) + "°C</b>";
+            }).catch(function() { document.getElementById('weatherVal').innerHTML = "🌤️ Nắng nhẹ <b>29°C</b>"; });
     }
-    navigator.geolocation ? navigator.geolocation.getCurrentPosition(p => fetchWeather(p.coords.latitude, p.coords.longitude), () => fetchWeather(16.4637, 107.5909)) : fetchWeather(16.4637, 107.5909);
+    if (navigator.geolocation) { navigator.geolocation.getCurrentPosition(function(p) { fetchWeather(p.coords.latitude, p.coords.longitude); }, function() { fetchWeather(16.4637, 107.5909); }); }
 </script>
-
 </body>
 </html>
