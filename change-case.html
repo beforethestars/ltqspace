@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"><title>Chuyển Đổi Kiểu Chữ - ltq.myday</title>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Be Vietnam Pro', sans-serif; }
+        body { background-color: #f8faf7; background-image: linear-gradient(#e2eee6 1px, transparent 1px), linear-gradient(90deg, #e2eee6 1px, transparent 1px); background-size: 24px 24px; padding: 40px 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 20px; }
+        .back-btn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #2b5742; font-weight: 600; font-size: 14px; width: fit-content; transition: transform 0.2s; }
+        .back-btn:hover { transform: translateX(-4px); }
+        .card { background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,247,238,0.95)); border: 2.5px solid #d6f0e0; border-radius: 28px; padding: 28px; box-shadow: 0 8px 24px rgba(43,87,66,0.03); }
+        .title { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 700; color: #2b5742; margin-bottom: 20px; }
+        textarea { width: 100%; height: 160px; padding: 15px; border: 1.5px solid #b8dfc8; border-radius: 16px; background: #fff; font-size: 14px; color: #2b5742; outline: none; resize: vertical; transition: border-color 0.2s; }
+        textarea:focus { border-color: #88c4a0; box-shadow: 0 0 0 3px rgba(184,223,200,0.3); }
+        .btn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin: 18px 0; }
+        .btn { padding: 10px 12px; background: #fff; border: 1.5px solid #b8dfc8; border-radius: 12px; color: #2b5742; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .btn:hover { background: #b8dfc8; transform: translateY(-2px); }
+        .btn-copy { background: #b8dfc8; border-color: #a8dbc0; font-weight: 700; }
+        .btn-copy:hover { background: #a8dbc0; }
+        .status { font-size: 13px; color: #6b8275; font-weight: 500; text-align: right; min-height: 20px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="index.html" class="back-btn">⬅ Quay lại ltq.myday</a>
+    <div class="card">
+        <div class="title"><span>Aa</span> Chuyển đổi kiểu chữ</div>
+        <textarea id="inputText" placeholder="Nhập hoặc dán văn bản của bạn vào đây..."></textarea>
+        <div class="btn-grid">
+            <button class="btn" onclick="convert('upper')">IN HOA</button>
+            <button class="btn" onclick="convert('lower')">in thường</button>
+            <button class="btn" onclick="convert('capital')">In Đầu Từ</button>
+            <button class="btn" onclick="convert('sentence')">In đầu câu</button>
+            <button class="btn" onclick="convert('camel')">camelCase</button>
+            <button class="btn" onclick="convert('kebab')">kebab-case</button>
+            <button class="btn btn-copy" onclick="copyText()">📋 Copy</button>
+            <button class="btn" style="border-color:#fca8ba; color:#d17b88;" onclick="clearText()">🗑️ Xóa hết</button>
+        </div>
+        <div class="status" id="statusMsg"></div>
+    </div>
+</div>
+<script>
+    function convert(type) {
+        var el = document.getElementById('inputText'), val = el.value;
+        if(!val) return;
+        if(type === 'upper') el.value = val.toUpperCase();
+        else if(type === 'lower') el.value = val.toLowerCase();
+        else if(type === 'capital') el.value = val.toLowerCase().replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+        else if(type === 'sentence') el.value = val.toLowerCase().replace(/(^\s*|[.!?]\s*)([a-zàáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
+        else if(type === 'camel') el.value = val.toLowerCase().replace(/[^a-zA-Z0-9àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]+(.)/g, function(m, chr) { return chr.toUpperCase(); });
+        else if(type === 'kebab') el.value = val.toLowerCase().trim().replace(/\s+/g, '-');
+        showStatus('Đã chuyển đổi thành công!');
+    }
+    function copyText() {
+        var el = document.getElementById('inputText');
+        if(!el.value) return;
+        navigator.clipboard.writeText(el.value).then(function() { showStatus('Đã sao chép vào bộ nhớ tạm!'); });
+    }
+    function clearText() { document.getElementById('inputText').value = ''; showStatus('Đã xóa văn bản.'); }
+    function showStatus(msg) {
+        var st = document.getElementById('statusMsg');
+        st.innerText = msg;
+        setTimeout(function() { st.innerText = ''; }, 2500);
+    }
+</script>
+</body>
+</html>
