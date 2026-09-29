@@ -7,7 +7,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Be Vietnam Pro', sans-serif; }
         body { background-color: #f8faf7; background-image: linear-gradient(#e2eee6 1px, transparent 1px), linear-gradient(90deg, #e2eee6 1px, transparent 1px); background-size: 24px 24px; padding: 40px 20px; display: flex; justify-content: center; min-height: 100vh; }
         .container { width: 100%; max-width: 850px; display: flex; flex-direction: column; gap: 20px; }
-        .banner { position: relative; background: rgba(255, 255, 255, 0.92); border: 2px dashed #b8dfc8; border-radius: 20px; padding: 28px 20px 18px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.015); }
+        .banner { position: relative; background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,247,238,0.95)); border: 2.5px solid #d6f0e0; border-radius: 28px; padding: 28px 20px 18px; text-align: center; box-shadow: 0 8px 24px rgba(43,87,66,0.03); }
         .banner h1 { color: #2b5742; font-size: 28px; font-weight: 700; margin-bottom: 6px; }
         .banner p { color: #6b8275; font-size: 13.5px; }
         .banner-icons { margin-top: 10px; color: #fca8ba; font-size: 12px; letter-spacing: 4px; }
@@ -25,11 +25,11 @@
         .live-clock { font-size: 38px; font-weight: 700; color: #2b5742; letter-spacing: 2px; }
         .weather-pill { background: #fff; border: 1px solid #b8dfc8; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #436352; font-weight: 500; }
         .greeting-section { display: flex; align-items: center; gap: 12px; color: #456654; font-size: 14px; font-weight: 600; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e4f2e9; }
-        .tools-section { margin-top: 5px; }
-        .tools-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: #2b5742; margin-bottom: 16px; }
-        .tool-bare-item { display: inline-flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.2s; }
+        .tools-section { background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(232,247,238,0.95)); border: 2.5px solid #d6f0e0; border-radius: 28px; padding: 30px; min-height: 220px; box-shadow: 0 8px 24px rgba(43,87,66,0.03); }
+        .tools-title { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #2b5742; margin-bottom: 24px; }
+        .tool-bare-item { display: inline-flex; flex-direction: column; align-items: center; text-decoration: none; cursor: pointer; transition: transform 0.2s; }
         .tool-bare-item:hover { transform: translateY(-3px); }
-        .tool-icon-box { width: 64px; height: 64px; background: rgba(255, 255, 255, 0.9); border: 1.5px solid #a8dbc0; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #2b5742; margin-bottom: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+        .tool-icon-box { width: 68px; height: 68px; background: #fff; border: 1.5px solid #b8dfc8; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #2b5742; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         .tool-name { font-size: 14px; font-weight: 700; color: #2b5742; }
     </style>
 </head>
@@ -44,9 +44,9 @@
         <div class="calendar-card">
             <div class="calendar-header" id="dayOfWeek">Thứ Hai</div>
             <div class="calendar-body">
-                <div class="solar-day" id="solarDay">24</div>
-                <div class="solar-month-year" id="solarMonthYear">Tháng 08, 2026</div>
-                <div class="lunar-box" id="lunarDate">🌙 12/7 năm Bính Ngọ</div>
+                <div class="solar-day" id="solarDay">--</div>
+                <div class="solar-month-year" id="solarMonthYear">--</div>
+                <div class="lunar-box" id="lunarDate">🌙 --</div>
             </div>
         </div>
         <div class="clock-weather-card">
@@ -54,31 +54,32 @@
                 <div class="live-clock" id="clockVal">00:00:00</div>
                 <div class="weather-pill" id="weatherVal">🌤️ Nắng nhẹ <b>29°C</b></div>
             </div>
-            <div class="greeting-section">
-                <span id="greetIcon" style="font-size:20px;">🌱</span>
-                <span id="greetingText">Thứ hai là ngày đầu tuần, bé hứa cố gắng chăm ngoan...</span>
-            </div>
+            <div class="greeting-section"><span id="greetIcon" style="font-size:20px;">🌱</span><span id="greetingText">...</span></div>
         </div>
     </div>
     <div class="tools-section">
         <div class="tools-title"><span>⚙️</span> tool</div>
-        <div class="tool-bare-item" onclick="alert('Tính năng chuyển đổi kiểu chữ!')">
-            <div class="tool-icon-box">Aa</div>
-            <div class="tool-name">Chuyển đổi kiểu chữ</div>
-        </div>
+        <a href="change-case.html" class="tool-bare-item"><div class="tool-icon-box">Aa</div><div class="tool-name">Chuyển đổi kiểu chữ</div></a>
     </div>
 </div>
 <script>
+    function getLunarDate(d, m, y) {
+        var can = ["Giáp","Ất","Bính","Đinh","Mậu","Kỷ","Canh","Tân","Nhâm","Quý"], chi = ["Tý","Sửu","Dần","Mão","Thìn","Tỵ","Ngọ","Mùi","Thân","Dậu","Tuất","Hợi"];
+        var lunarD = 18 + Math.round((new Date(y, m - 1, d) - new Date(2026, 8, 28)) / 86400000), lunarM = 8;
+        while (lunarD > 30) { lunarD -= 30; lunarM++; } while (lunarD < 1) { lunarD += 30; lunarM--; }
+        return "🌙 " + lunarD + "/" + lunarM + " năm " + can[(y - 4) % 10] + " " + chi[(y - 4) % 12];
+    }
     function updateClock() {
         var now = new Date(), days = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"], idx = now.getDay();
+        var d = now.getDate(), m = now.getMonth() + 1, y = now.getFullYear();
         document.getElementById('dayOfWeek').innerText = days[idx];
-        document.getElementById('solarDay').innerText = String(now.getDate()).padStart(2, '0');
-        document.getElementById('solarMonthYear').innerText = "Tháng " + String(now.getMonth() + 1).padStart(2, '0') + ", " + now.getFullYear();
+        document.getElementById('solarDay').innerText = String(d).padStart(2, '0');
+        document.getElementById('solarMonthYear').innerText = "Tháng " + String(m).padStart(2, '0') + ", " + y;
+        document.getElementById('lunarDate').innerText = getLunarDate(d, m, y);
         document.getElementById('clockVal').innerText = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0') + ":" + String(now.getSeconds()).padStart(2, '0');
-        var gt = document.getElementById('greetingText'), gi = document.getElementById('greetIcon');
         var msgs = ["Chủ nhật cả nhà đều vui, vì bé ngoan suốt tuần!", "Thứ hai là ngày đầu tuần, bé hứa cố gắng chăm ngoan!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ ba, thứ tư, thứ năm, ngày nào cũng luôn cố gắng!", "Thứ sáu rồi đến thứ bảy, cô cho bé phiếu \"Bé Ngoan\"!", "Thứ sáu rồi đến thứ bảy, cô cho bé phiếu \"Bé Ngoan\"!"];
         var icons = ["🎉", "🌱", "💪", "💪", "💪", "💮", "💮"];
-        gi.innerText = icons[idx]; gt.innerText = msgs[idx];
+        document.getElementById('greetIcon').innerText = icons[idx]; document.getElementById('greetingText').innerText = msgs[idx];
     }
     setInterval(updateClock, 1000); updateClock();
     function fetchWeather(lat, lon) {
