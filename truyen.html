@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>sách / truyện</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Crimson+Pro:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
+<style>
+:root{--bg:#fff;--fg:#111;--mute:#8a8a8a;--line:#111;--soft:#e6e6e6;--pink:#f9c5d1;--bar:#111;--btn:#111;--btnfg:#fff;--red:#d23b3b;--grn:#2f9e5b;--amb:#d98e1f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#f1f1f1;--mute:#8d8d8d;--line:#f1f1f1;--soft:#333;--pink:#7a2d44;--bar:#f1f1f1;--btn:#f1f1f1;--btnfg:#141414}}
+:root[data-theme="dark"]{--bg:#141414;--fg:#f1f1f1;--mute:#8d8d8d;--line:#f1f1f1;--soft:#333;--pink:#7a2d44;--bar:#f1f1f1;--btn:#f1f1f1;--btnfg:#141414}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.4 "Crimson Pro",system-ui,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 40px 60px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.crumb{display:flex;gap:8px;align-items:center}
+.crumb i{width:18px;height:12px;background:#5b9be6;border-radius:2px;display:inline-block}
+.crumb span{color:var(--mute)}
+.btns{display:flex;gap:8px}
+button{font:inherit;cursor:pointer;color:inherit}
+.pill{border:1px solid var(--line);background:none;border-radius:99px;padding:6px 14px;font-size:13px}
+.pill.dark{background:var(--btn);color:var(--btnfg)}
+h1{font-weight:400;font-size:64px;letter-spacing:-.03em;margin:44px 0 0;line-height:1.1}
+.head{display:flex;align-items:baseline;gap:26px;border-bottom:1px solid var(--line);padding-bottom:4px;flex-wrap:wrap}
+.head a{font-size:24px;color:var(--mute)}
+.head sup{font-size:11px}
+.views{display:flex;align-items:center;gap:22px;padding:18px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.views button{background:none;border:0;padding:0 0 4px;font-size:15px}
+.views button.on{font-weight:600;font-size:18px;border-bottom:2px solid var(--fg)}
+.views input{margin-left:auto;border:0;border-bottom:1px solid var(--fg);background:none;font:inherit;font-size:13px;width:210px;padding:4px 0;color:var(--fg);outline:none}
+.tags{display:flex;align-items:baseline;gap:26px;padding:24px 0 12px;flex-wrap:wrap}
+.tags button{background:none;border:0;padding:0;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:36px;color:var(--mute);opacity:.6;line-height:1.1}
+.tags button.on{color:var(--fg);opacity:1;background:linear-gradient(transparent 62%,var(--pink) 62%);padding:0 4px}
+.tags small{font:11px "Crimson Pro",Georgia,serif;margin-left:5px;color:var(--fg)}
+section{padding:26px 0 30px;border-top:1px solid var(--line)}
+h2{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:32px;margin:0 0 16px}
+h2 small{font:11px "Crimson Pro",Georgia,serif;color:var(--mute);margin-left:6px}
+.row{display:flex;gap:20px;overflow-x:auto;padding:4px 4px 10px;scrollbar-width:thin}
+.book{flex:0 0 113px;width:113px}
+.book.bl{opacity:.45}
+.cv{position:relative}
+.cover{width:100%;height:168px;border:0;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);padding:10px 8px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:17px;line-height:1.1;overflow:hidden;color:#fff;transition:transform .15s}
+.cover:hover{transform:translateY(-3px)}
+.cover{position:relative}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:6px}
+.more{margin-top:12px;background:none;border:1px solid var(--soft);border-radius:99px;padding:5px 16px;font-size:12px}
+.row.wrap{flex-wrap:wrap;overflow:visible}
+.bd{position:absolute;top:-5px;right:-5px;font-size:10px;padding:2px 6px;border-radius:99px;color:#fff;font-weight:600}
+.bd.rec{background:var(--amb)}.bd.blk{background:var(--red)}
+.bt{font-size:12px;font-weight:500;margin-top:8px;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.au{font-size:11px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{height:3px;background:var(--soft);margin-top:6px;border-radius:2px}
+.prog i{display:block;height:100%;background:var(--bar);border-radius:2px}
+.cap{font-size:11px;color:var(--mute);margin-top:4px}
+.stars{font-size:11px;letter-spacing:1px;margin-top:5px}
+.stars s{text-decoration:none;color:var(--soft)}
+.empty{color:var(--mute);font-size:13px}
+dialog{border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);padding:0;width:min(560px,94vw);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+form{padding:22px 24px;display:grid;gap:14px}
+.fh{display:flex;justify-content:space-between;align-items:center}
+.fh h3{margin:0;font:italic 400 30px "Cormorant Garamond",serif}
+.x{background:none;border:0;font-size:22px;line-height:1}
+label{display:grid;gap:4px;font-size:12px;color:var(--mute)}
+input[type=text],input[type=url],input[type=date],input[type=number],select{font:inherit;font-size:14px;color:var(--fg);background:none;border:0;border-bottom:1px solid var(--soft);padding:6px 0;outline:none;width:100%}
+input:focus,select:focus{border-bottom-color:var(--fg)}
+select option{background:var(--bg);color:var(--fg)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lk{display:flex;gap:10px;align-items:end}
+.lk a{font-size:13px;white-space:nowrap;padding-bottom:6px;color:var(--fg)}
+.chk{display:flex;gap:22px;flex-wrap:wrap}
+.chk label{display:flex;grid-auto-flow:column;align-items:center;gap:8px;font-size:14px;color:var(--fg);cursor:pointer}
+.chk input{width:16px;height:16px;accent-color:var(--fg)}
+.st{display:flex;gap:2px}
+.fl{display:grid;gap:4px;font-size:12px;color:var(--mute)}
+.tgs{display:flex;gap:8px;flex-wrap:wrap}
+.tgs label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg);border:1px solid var(--soft);border-radius:99px;padding:4px 12px;cursor:pointer}
+.tgs input{width:14px;height:14px;accent-color:var(--fg)}
+.st button{background:none;border:0;font-size:22px;padding:0 2px;color:var(--soft)}
+.st button.on{color:var(--amb)}
+.act{display:flex;justify-content:space-between;margin-top:4px}
+.del{color:var(--red);border-color:var(--red)}
+@media (max-width:640px){.wrap{padding:20px 18px}h1{font-size:44px}.head a{font-size:18px}.views input{width:100%;margin:6px 0 0}.tags button{font-size:28px}.g2{grid-template-columns:1fr}}
+
+:root{--bg:#fbf7f1;--fg:#2b2622;--mute:#9a8f84;--soft:#e8ddd0;--btn:#2b2622;--btnfg:#fff7ee}
+body{font-family:"Crimson Pro",Georgia,serif;font-size:18px;font-variant-numeric:lining-nums}
+h1{font:600 48px/1.1 Fraunces,Georgia,serif;letter-spacing:-.02em;margin:30px 0 6px}
+.head{border:0;padding:0}
+.pill{border-color:var(--soft)}
+.views{border:0;padding:10px 0 6px;gap:6px}
+.views button{font-size:13px;color:var(--mute);padding:6px 14px;border-radius:99px;border:0}
+.views button.on{background:var(--soft);color:var(--fg);font-size:13px;border:0}
+.views input{border:1px solid var(--soft);border-radius:99px;padding:8px 16px;width:240px}
+.tags{padding:10px 0 4px;gap:8px}
+.tags button{font:italic 500 22px "Cormorant Garamond",Georgia,serif;color:var(--mute);opacity:1;padding:4px 20px 6px;border:1px solid var(--soft);border-radius:99px;background:none}
+.tags button.on{background:var(--fg);color:var(--bg);border-color:var(--fg);padding:4px 20px 6px}
+.tags small{font:700 11px "Crimson Pro",Georgia,serif;margin-left:7px;color:inherit;opacity:.7}
+section{border:1px solid var(--soft);border-radius:22px;padding:20px 24px 24px;margin-top:18px;background:color-mix(in srgb,var(--fg) 3%,var(--bg))}
+h2{font:600 22px Fraunces,Georgia,serif;display:flex;align-items:center;gap:10px;margin:0 0 16px}
+h2::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--dot,#b9aea2)}
+h2 small{font:700 11px "Crimson Pro",Georgia,serif;background:var(--soft);color:var(--fg);border-radius:99px;padding:2px 9px;margin:0}
+#shelves section:nth-child(2){--dot:#e8a73a}
+#shelves section:nth-child(3){--dot:#e8909b}
+#shelves section:nth-child(4){--dot:#5fae7a}
+.book{flex:0 0 126px;width:126px}
+.cover,.cover img{border-radius:12px}
+.cover{box-shadow:0 8px 18px rgba(70,45,20,.18)}
+.book .cover{height:186px;font-family:Fraunces,Georgia,serif;font-style:normal;font-size:15px}
+.bt{font-weight:700;font-size:13px}
+.prog{height:5px;border-radius:3px}
+.prog i{background:linear-gradient(90deg,#f4a9b3,#e0707f)}
+.stars{color:#e8a73a}
+dialog{border-radius:20px;border-color:var(--soft)}
+.fh h3{font:600 24px Fraunces,Georgia,serif}
+.book .cover{flex-direction:column;justify-content:center;text-shadow:0 1px 3px rgba(0,0,0,.4)}
+.ct{flex:1;display:flex;align-items:center}
+.ca{margin-top:auto;font:600 12px/1.2 "Crimson Pro",Georgia,serif;font-style:normal;opacity:.92;max-width:100%;overflow-wrap:anywhere}
+#shelves section:nth-child(5){--dot:#6aa6d8}
+.au,.cap,.stars,.tags small,h2 small{font-size:12px}
+.tags button{display:inline-flex;align-items:center;gap:8px}
+.tags small,h2 small,.subs small{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:22px;padding:0 8px;border-radius:99px;font:600 13px/1 "Crimson Pro",Georgia,serif;font-style:normal;font-variant-numeric:lining-nums tabular-nums;margin:0;opacity:1}
+.tags small,.subs small{background:color-mix(in srgb,currentColor 16%,transparent)}
+h2 small{background:var(--soft);color:var(--fg)}
+.subs{display:flex;flex-wrap:wrap;gap:6px 22px;padding:12px 6px 2px}
+.subs button{display:inline-flex;align-items:center;gap:7px;background:none;border:0;border-bottom:2px solid transparent;padding:2px 0 3px;font-size:17px;color:var(--mute)}
+.subs button.on{color:var(--fg);border-bottom-color:var(--pink)}
+.flt{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 0 2px;color:var(--mute);font-size:15px}
+.flt select{width:auto;border:1px solid var(--soft);border-radius:99px;padding:4px 12px;font-size:15px}
+.chip{background:none;border:1px solid var(--soft);border-radius:99px;padding:3px 13px;font-size:15px;color:var(--fg)}
+.chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.chip.clr{border-style:dashed;color:var(--mute)}
+body{font-size:21px}
+.top,.crumb{font-size:18px}
+.pill{font-size:16px}
+h1{font-size:58px}
+.views button,.views button.on{font-size:18px}
+.views input{font-size:18px;width:320px}
+.tags button{font-size:28px}
+.subs button{font-size:21px}
+.flt,.flt select,.chip{font-size:18px}
+.fp{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+h2{font-size:29px}
+.tags small,h2 small,.subs small{font-size:15px;height:25px;min-width:27px}
+.book{flex:0 0 144px;width:144px}
+.book .cover{height:212px;font-size:20px}
+.ca{font-size:15px}
+.bt{font-size:18px}
+.au,.cap,.stars,.empty,.more{font-size:16px}
+label,.fl{font-size:16px}
+input[type=text],input[type=url],input[type=date],input[type=number],select{font-size:19px}
+.tgs label,.chk label,.lk a{font-size:18px}
+.fh h3{font-size:32px}
+.gx{background:none;border:0;padding:0 0 0 4px;font-size:20px;line-height:1;color:var(--mute)}
+.gx.arm{color:var(--red);font-size:15px;font-weight:600}
+@media (max-width:640px){body{font-size:19px}h1{font-size:44px}.views input{width:100%}.book{flex-basis:130px;width:130px}.book .cover{height:192px}}
+textarea{font:inherit;font-size:19px;color:var(--fg);background:none;border:1px solid var(--soft);border-radius:12px;padding:8px 10px;resize:vertical;width:100%;outline:none}
+textarea:focus{border-color:var(--fg)}
+.bf{padding:22px 24px;display:grid;gap:14px}
+.hint{font-size:16px;color:var(--mute);margin:0}
+.act2{display:flex;gap:10px;flex-wrap:wrap}
+.rev{display:block;background:none;border:0;padding:0;margin-top:2px;font-size:15px;color:var(--mute);text-decoration:underline;cursor:pointer}
+.subs .sc{display:inline-flex;align-items:center}
+.subs .chip{font-size:16px;padding:2px 12px;border:1px solid var(--soft);border-radius:99px;color:var(--mute);background:none}
+.subs .gx{border:0;padding:0 0 0 6px;font-size:20px;color:var(--mute)}
+.subs .gx.arm{color:var(--red);font-size:15px}
+.subs input[type=text]{font-size:17px;width:190px;border:1px solid var(--soft);border-radius:99px;padding:3px 12px;background:none}
+.top{flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="crumb"><i></i><a href="index.html" style="color:inherit;text-decoration:none">home</a> <span>›</span> tài liệu nghiên cứu gay học</div>
+    <div class="btns"><button class="pill" id="bkp">sao lưu / khôi phục</button><button class="pill">↻ sync Drive</button><button class="pill dark" id="add">+ thêm truyện</button></div>
+  </div>
+  <div class="head"><h1>tài liệu nghiên cứu gay học</h1></div>
+  <div class="views"><span id="vb" style="display:contents"></span><input id="q" placeholder="tìm truyện, tác giả, thể loại, sao…"></div>
+  <div class="subs" id="subs"></div>
+  <div class="flt" id="flt"></div>
+  <div id="shelves"></div>
+</div>
+<dialog id="dlg"><form id="f" method="dialog">
+  <div class="fh"><h3 id="ft">book</h3><button type="button" class="x" id="close" aria-label="Đóng">×</button></div>
+  <label>Tên truyện<input type="text" id="t" required></label>
+  <div class="g2">
+    <label>Tác giả<input type="text" id="au" placeholder="vd: Priest"></label>
+    <label>Couple<input type="text" id="cp" placeholder="vd: A × B"></label>
+  </div>
+  <div class="g2">
+    <label>Trạng thái xuất bản<select id="pub"><option value="0">Chưa có thông tin</option><option value="1">Đã xuất bản</option><option value="2">Đang xuất bản</option></select></label>
+    <label>Trạng thái đọc<select id="sh"><option value="reading">Đang đọc</option><option value="finished">Đã đọc</option><option value="pending">Sẽ đọc</option></select></label>
+  </div>
+  <div class="lk"><label style="flex:1">Link đọc<input type="url" id="lk" placeholder="https://"></label><a id="go" target="_blank" rel="noopener noreferrer" hidden>mở link ↗</a></div>
+  <label>Link ảnh bìa<input type="url" id="im" placeholder="dán link ảnh (jpg, png, webp…)"></label>
+  <div class="g2">
+    <label style="grid-column:1/-1">Thời gian đọc<select id="dm"><option value="day">Ngày cụ thể</option><option value="year">Chỉ nhớ năm</option></select></label>
+    <label>Đọc từ ngày<input type="date" id="d1"></label>
+    <label id="l2">Đến ngày<input type="date" id="d2"></label>
+  </div>
+  <div class="g2">
+    <label>Chương đang đọc<input type="number" id="ch" min="0"></label>
+    <label>Tổng số chương<input type="number" id="tot" min="1"></label>
+    <div class="fl" id="pw" style="grid-column:1/-1">Tiến độ<div class="prog" style="margin:4px 0"><i id="pbar" style="width:0"></i></div><span id="pc" style="color:var(--fg)">0%</span></div>
+    <label style="grid-column:1/-1">Danh mục<select id="cat"></select></label>
+    <div class="fl" style="grid-column:1/-1">Thể loại<div class="tgs" id="tg"></div><div class="lk"><input type="text" id="gnew" style="flex:1" placeholder="thêm thể loại mới"><button type="button" class="pill" id="gadd">+ thêm</button></div></div>
+  </div>
+  <div class="fl">Đánh giá<div class="st" id="st"></div></div>
+  <label>Nhận xét (review)<textarea id="nt" rows="3" placeholder="cảm nghĩ về truyện…"></textarea></label>
+  <div class="chk"><label><input type="checkbox" id="rc"> Đề cử</label><label><input type="checkbox" id="bk"> Blacklist</label></div>
+  <div class="act"><button type="button" class="pill del" id="del">Xóa</button><button type="submit" class="pill dark">Lưu</button></div>
+</form></dialog>
+<dialog id="bdlg"><div class="bf">
+  <div class="fh"><h3>sao lưu &amp; khôi phục</h3><button type="button" class="x" id="bclose" aria-label="Đóng">×</button></div>
+  <p class="hint">Dữ liệu chỉ nằm trong trình duyệt này. Hãy sao chép mã bên dưới (hoặc tải file) rồi cất vào Drive hay ghi chú để giữ an toàn.</p>
+  <textarea id="bt" rows="6" spellcheck="false"></textarea>
+  <div class="act2"><button type="button" class="pill" id="bcopy">sao chép</button><button type="button" class="pill" id="bdl">tải file .json</button></div>
+  <label>Khôi phục từ file<input type="file" id="bfile" accept=".json,application/json"></label>
+  <p class="hint">Hoặc dán mã đã lưu vào ô trên, rồi bấm khôi phục.</p>
+  <div class="act2"><button type="button" class="pill dark" id="brest">khôi phục từ ô trên</button></div>
+  <p class="hint" id="bmsg"></p>
+</div></dialog>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const G=["#1b2236,#33405f","#5aa7e8,#c9e6fb","#1d2554,#6a4fa8","#c9a82a,#fff3b8","#7a1515,#e0432b","#6aa83a,#d9efb0","#4a8fc4,#fbe0e6","#b89a2a,#fff6b0","#a98a7a,#efe4cf","#d9708a,#fde4ea","#2e3a22,#6f7f45","#5fae98,#e8f4cf"];
+let GRP={"BL":["Trung","Hàn","Thái","Âu - Mỹ","fanfic Youngpil","fanfic Sikwoo","truyện tranh"]};
+try{const c=JSON.parse(localStorage.getItem("archive_cats"));if(c&&typeof c=="object"&&Object.keys(c).length)GRP=c}catch(e){}
+const cleanGrp=()=>{delete GRP["Văn học"];if(!Array.isArray(GRP.BL))GRP.BL=["Trung","Hàn","Thái","Âu - Mỹ","fanfic Youngpil","fanfic Sikwoo","truyện tranh"];Object.keys(GRP).forEach(k=>{if(k!="BL"){GRP.BL.push(...GRP[k].filter(x=>!GRP.BL.includes(x)));delete GRP[k]}})};
+cleanGrp();
+const grpOf=c=>Object.keys(GRP).find(g=>GRP[g].includes(c))||"";
+let GEN={};
+try{GEN=JSON.parse(localStorage.getItem("archive_gen"))||{}}catch(e){}
+[["đam mỹ","BL"]].forEach(([o,n])=>{if(GEN[o]){GEN[n]=[...new Set([...(GEN[n]||[]),...GEN[o]])];delete GEN[o]}});
+GEN.BL=GEN.BL||["hiện đại","cổ đại","học đường","showbiz","ABO","xuyên không","hài","ngọt","ngược"];
+delete GEN["Văn học"];
+const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[đĐ]/g,"d").toLowerCase();
+const SH={all:"Tất cả",finished:"Đã đọc",reading:"Đang đọc",pending:"Sẽ đọc",rec:"Đề cử"};
+const PUB=["Chưa có thông tin","Đã xuất bản","Đang xuất bản"];
+const seed=[];
+let S=null;
+try{S=JSON.parse(localStorage.getItem("archive_v1"))}catch(e){}
+if(!S)S=seed.map((r,i)=>({id:i+1,t:r[0],au:r[1],cp:r[2],pub:r[3],sh:r[4],cat:"Trung",gn:[],lk:"",d1:"",d2:"",rc:false,bk:false,
+  p:r[4]=="reading"?r[5]:0,s:r[4]=="reading"?0:r[5]}));
+const fix=()=>{
+S.forEach(b=>{if(b.cat===undefined){const t=Array.isArray(b.tg)?b.tg[0]:b.tg;b.cat=t&&t!="untagged"?t:"";b.gn=[]}delete b.tg;if(b.cat=="đam mỹ")b.cat="Trung";if(b.cat&&!Object.values(GRP).flat().includes(b.cat))b.cat=""});
+S.forEach(b=>{if(typeof b.p=="string"){const m=b.p.match(/(\d+)\D+(\d+)/);if(m){b.ch=+m[1];b.tot=+m[2]}b.p=0}});
+S.forEach((b,i)=>{if(!b.id)b.id=Date.now()+i;b.gn=b.gn||[]})};
+fix();
+const save=()=>{try{localStorage.setItem("archive_v1",JSON.stringify(S))}catch(e){}};
+let tag="BL",sub="",fg=[],fr="",fo=false,gdel=null,ce=false,cdel=null,armD=false,armR=false,view="tiến độ đọc",cur=null,rate=0;
+const VIEWS=["tiến độ đọc","a to z","đã thêm gần đây","top rated"];
+const stars=s=>{let o="";for(let i=1;i<=5;i++)o+=i<=s?"★":"<s>★</s>";return o};
+const fmt=d=>!d?"":d.length==4?d:d.split("-").reverse().map((x,i)=>i==2?x.slice(2):x).join("/");
+const imgUrl=u=>{u=u.trim();let m=u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);if(m)return "https://lh3.googleusercontent.com/d/"+m[1];if(/dropbox\.com/.test(u))return u.replace("www.dropbox.com","dl.dropboxusercontent.com").replace(/[?&]dl=0/,"");return u};
+const pct=b=>b.tot>0?Math.min(100,Math.round(b.ch/b.tot*100)):(+b.p||0);
+const range=b=>{const a=fmt(b.d1),c=fmt(b.d2);return a&&c&&a==c?a:[a,c].filter(Boolean).join(" – ")};
+function card(b){
+  const g=G[b.id%G.length].split(",");
+  let low="";
+  if(b.sh=="reading"){const n=pct(b);
+    low=`<div class="prog"><i style="width:${n}%"></i></div><div class="cap">${n}%${b.tot>0?" · "+b.ch+"/"+b.tot:""}</div>`}
+  else{low=`<div class="stars">${stars(b.s)}</div>`+(b.d1||b.d2?`<div class="cap">${range(b)}</div>`:"")}
+  const bd=b.bk?'<span class="bd blk">blacklist</span>':b.rc?'<span class="bd rec">đề cử</span>':"";
+  return `<div class="book${b.bk?" bl":""}"><div class="cv"><button class="cover" data-id="${b.id}" style="background:linear-gradient(160deg,${g[0]},${g[1]})"><span class="ct">${esc(b.t)}</span>${b.au?`<span class="ca">${esc(b.au)}</span>`:""}${b.img?`<img src="${esc(imgUrl(b.img))}" referrerpolicy="no-referrer" loading="lazy" alt="">`:""}</button>${bd}</div>
+  <div class="bt">${esc(b.t)}</div><div class="au">${esc(b.au)}${b.cp?" · "+esc(b.cp):""}</div>${low}${b.nt?`<button class="rev" data-id="${b.id}" data-rv="1">1 review</button>`:""}</div>`}
+function sorted(a){const c=[...a];
+  if(view=="a to z")c.sort((x,y)=>x.t.localeCompare(y.t,"vi"));
+  if(view=="top rated")c.sort((x,y)=>y.s-x.s);
+  if(view=="đã thêm gần đây")c.sort((x,y)=>y.id-x.id);
+  if(view=="tiến độ đọc")c.sort((x,y)=>pct(y)-pct(x));
+  return c}
+const OPEN={},N=14;
+const shown=(k,a,n=N)=>OPEN[k]?a:a.slice(0,n);
+const more=(k,t,n=N)=>t>n?`<button class="more" data-o="${k}">${OPEN[k]?"thu gọn ▴":`xem tất cả ${t} ▾`}</button>`:"";
+function render(){
+  $("vb").innerHTML=VIEWS.map(v=>`<button class="${v==view?"on":""}" data-v="${v}">${v}</button>`).join("");
+  const inTab=()=>true;
+  const cats=GRP[tag]||[];
+  const gcat=GRP[tag];
+  $("subs").innerHTML=gcat?[["","tất cả",S.filter(b=>inTab(b,tag)).length],...gcat.map(c=>[c,c,S.filter(b=>b.cat==c).length])].map(([v,l,n])=>`<span class="sc"><button class="${v==sub?"on":""}" data-s="${esc(v)}">${esc(l)}<small>${n}</small></button>${ce&&v?`<button type="button" class="gx${v==cdel?" arm":""}" data-cx="${esc(v)}" title="${v==cdel?"bấm lần nữa để xóa danh mục (truyện giữ lại, chỉ bỏ phân loại)":"xóa danh mục"}">${v==cdel?"xóa?":"×"}</button>`:""}</span>`).join("")+`<button class="chip" data-ce="1">${ce?"xong":"✎ sửa danh mục"}</button>`+(ce?`<input id="cnew" type="text" placeholder="tên danh mục mới"><button class="chip" data-cadd="1">+ thêm</button>`:""):"";
+  const RO=[["","mọi đánh giá"],["5","5 sao"],["4","từ 4 sao"],["3","từ 3 sao"],["2","từ 2 sao"],["0","chưa đánh giá"]];
+  const nf=fg.length+(fr?1:0),gl=GEN[tag]||[];
+  $("flt").innerHTML=`<button class="chip${fo||nf?" on":""}" data-fo="1">lọc${nf?" · "+nf:""} ${fo?"▴":"▾"}</button>`+(nf?'<button class="chip clr" data-clr="1">xóa lọc</button>':"")+(fo?`<div class="fp"><span>đánh giá</span><select id="fr">${RO.map(([v,l])=>`<option value="${v}"${v==fr?" selected":""}>${l}</option>`).join("")}</select>${gl.length?"<span>thể loại</span>":""}${gl.map(g=>`<button class="chip${fg.includes(g)?" on":""}" data-g="${esc(g)}">${esc(g)}</button>`).join("")}</div>`:"");
+  const qs=norm($("q").value).split(/\s+/).filter(Boolean);
+  const hay=b=>norm([b.t,b.au,b.cp,b.cat,(b.gn||[]).join(" "),b.s?b.s+" sao":""].join(" "));
+  const list=S.filter(b=>inTab(b,tag)&&(!sub||b.cat==sub)&&fg.every(g=>(b.gn||[]).includes(g))&&(fr==""||(fr=="0"?!b.s:b.s>=+fr))&&qs.every(t=>hay(b).includes(t)));
+  $("shelves").innerHTML=["all","rec","reading","finished","pending"].map(k=>{
+    const a=sorted(k=="all"?list:k=="rec"?list.filter(b=>b.rc&&!b.bk):list.filter(b=>b.sh==k));
+    return `<section><h2>${SH[k]}<small>${a.length}</small></h2><div class="row${OPEN["l"+k]?" wrap":""}">${a.length?shown("l"+k,a).map(card).join(""):'<span class="empty">chưa có truyện nào</span>'}</div>${more("l"+k,a.length)}</section>`}).join("")}
+function cadd(){const v=($("cnew").value||"").trim();if(!v||!GRP[tag])return;if(Object.values(GRP).flat().some(x=>norm(x)==norm(v)))return;GRP[tag].push(v);saveC();render();const i=$("cnew");if(i)i.focus()}
+document.addEventListener("keydown",e=>{if(e.target.id=="cnew"&&e.key=="Enter"){e.preventDefault();cadd()}});
+function drawStars(){$("st").innerHTML=[1,2,3,4,5].map(i=>`<button type="button" class="${i<=rate?"on":""}" data-r="${i}" aria-label="${i} sao">★</button>`).join("")}
+function link(){const v=$("lk").value.trim(),ok=/^https?:\/\//i.test(v);$("go").hidden=!ok;if(ok)$("go").href=v}
+function mode(){const y=$("dm").value=="year";[["d1","Năm đọc","Đọc từ ngày"],["d2","","Đến ngày"]].forEach(([id,a,b])=>{const el=$(id);el.type=y?"number":"date";el.value="";if(y){el.min=1990;el.max=2100;el.placeholder="vd: 2023"}else{el.removeAttribute("min");el.removeAttribute("max");el.placeholder=""}el.parentNode.firstChild.textContent=y?a:b});$("l2").style.display=y?"none":""}
+let lp=0;
+const keep=()=>[...$("tg").querySelectorAll("input:checked")].map(i=>i.value);
+const saveC=()=>{try{localStorage.setItem("archive_cats",JSON.stringify(GRP))}catch(e){}};
+const saveG=()=>{try{localStorage.setItem("archive_gen",JSON.stringify(GEN))}catch(e){}};
+function genres(sel){const c=$("cat").value,l=GEN[grpOf(c)]||[];$("tg").innerHTML=l.length?l.map(k=>`<label><input type="checkbox" value="${esc(k)}" ${sel.includes(k)?"checked":""}>${esc(k)}<button type="button" class="gx${k==gdel?" arm":""}" data-gx="${esc(k)}" title="${k==gdel?"bấm lần nữa để xóa thể loại này khỏi tất cả truyện":"xóa thể loại"}">${k==gdel?"xóa?":"×"}</button></label>`).join(""):'<span class="empty">chọn danh mục để hiện thể loại</span>';$("gnew").disabled=$("gadd").disabled=!grpOf(c)}
+function gadd(){const gp=grpOf($("cat").value),v=$("gnew").value.trim();if(!gp||!v)return;const s=[...$("tg").querySelectorAll("input:checked")].map(i=>i.value);GEN[gp]=GEN[gp]||[];if(!GEN[gp].includes(v))GEN[gp].push(v);s.push(v);try{localStorage.setItem("archive_gen",JSON.stringify(GEN))}catch(e){}$("gnew").value="";genres(s)}
+function prog(){const c=+$("ch").value,t=+$("tot").value,n=t>0?Math.min(100,Math.round(c/t*100)):lp;$("pbar").style.width=n+"%";$("pc").textContent=n+"%"+(t>0?" ("+c+"/"+t+" chương)":"")}
+function open_(b){
+  gdel=null;armD=false;$("del").textContent="Xóa";cur=b;const n=!b;b=b||{t:"",au:"",cp:"",pub:0,sh:"reading",cat:sub||(GRP[tag]||[])[0]||"",gn:[],lk:"",d1:"",d2:"",rc:false,bk:false,p:0,s:0};
+  $("ft").textContent=n?"thêm truyện":"chi tiết truyện";
+  $("t").value=b.t;$("au").value=b.au;$("cp").value=b.cp;$("pub").value=b.pub;$("sh").value=b.sh;
+  $("cat").innerHTML=(GRP[tag]||[]).map(k=>`<option>${esc(k)}</option>`).join("");$("cat").value=b.cat||(GRP[tag]||[])[0]||"";genres(b.gn||[]);
+  $("dm").value=(b.d1||b.d2||"").length==4?"year":"day";mode();$("lk").value=b.lk;$("im").value=b.img||"";$("d1").value=$("dm").value=="year"&&!b.d1?b.d2:b.d1;$("d2").value=b.d2;$("ch").value=b.tot>0?b.ch:"";$("tot").value=b.tot>0?b.tot:"";lp=+b.p||0;prog();
+  $("nt").value=b.nt||"";$("rc").checked=b.rc;$("bk").checked=b.bk;rate=b.s;drawStars();link();$("del").hidden=n;
+  $("dlg").showModal()}
+document.addEventListener("click",e=>{
+  const v=e.target.closest("[data-v]"),t=e.target.closest("[data-t]"),c=e.target.closest("[data-id]"),r=e.target.closest("[data-r]");
+  if(v){view=v.dataset.v;render()}
+  const o=e.target.closest("[data-o]");if(o){OPEN[o.dataset.o]=!OPEN[o.dataset.o];render()}
+  if(t){tag=t.dataset.t;sub="";fg=[];cdel=null;render()}
+  const s2=e.target.closest("[data-s]"),g2=e.target.closest("[data-g]"),cl=e.target.closest("[data-clr]");
+  if(s2){sub=s2.dataset.s;render()}
+  if(g2){const k=g2.dataset.g;fg=fg.includes(k)?fg.filter(x=>x!=k):[...fg,k];render()}
+  if(cl){fg=[];fr="";render()}
+  const ce2=e.target.closest("[data-ce]");if(ce2){ce=!ce;cdel=null;render()}
+  const cx=e.target.closest("[data-cx]");if(cx){const c=cx.dataset.cx;if(cdel!=c){cdel=c;render()}else{GRP[tag]=GRP[tag].filter(x=>x!=c);S.forEach(b=>{if(b.cat==c)b.cat=""});if(sub==c)sub="";cdel=null;save();saveC();render()}}
+  if(e.target.closest("[data-cadd]"))cadd();
+  const fo2=e.target.closest("[data-fo]");if(fo2){fo=!fo;render()}
+  const gx=e.target.closest("[data-gx]");if(gx){e.preventDefault();const k=gx.dataset.gx,gp=grpOf($("cat").value);if(gdel!=k){gdel=k;genres(keep())}else{GEN[gp]=(GEN[gp]||[]).filter(x=>x!=k);S.forEach(b=>{if(grpOf(b.cat)==gp&&b.gn)b.gn=b.gn.filter(x=>x!=k)});fg=fg.filter(x=>x!=k);gdel=null;save();saveG();genres(keep().filter(x=>x!=k));render()}}
+  if(c){open_(S.find(b=>b.id==c.dataset.id));if(e.target.closest("[data-rv]"))setTimeout(()=>$("nt").focus(),50)}
+  if(r){rate=rate==+r.dataset.r?0:+r.dataset.r;drawStars()}});
+document.addEventListener("error",e=>{if(e.target.tagName=="IMG")e.target.remove()},true);
+$("add").onclick=()=>open_(null);
+document.addEventListener("change",e=>{if(e.target.id=="fr"){fr=e.target.value;render()}});
+$("close").onclick=()=>$("dlg").close();
+$("q").oninput=render;$("lk").oninput=link;$("dm").onchange=mode;$("gadd").onclick=gadd;$("gnew").onkeydown=e=>{if(e.key=="Enter"){e.preventDefault();gadd()}};$("cat").onchange=()=>{gdel=null;genres(keep())};$("ch").oninput=prog;$("tot").oninput=prog;
+$("del").onclick=()=>{if(!cur)return;if(!armD){armD=true;$("del").textContent="bấm lần nữa để xóa";return}armD=false;S=S.filter(b=>b!==cur);save();$("dlg").close();render()};
+$("f").onsubmit=()=>{const dv=id=>{const v=$(id).value;return $("dm").value=="year"&&v.length!=4?"":v};
+  const d={t:$("t").value.trim(),au:$("au").value.trim(),cp:$("cp").value.trim(),pub:+$("pub").value,sh:$("sh").value,cat:$("cat").value,gn:[...$("tg").querySelectorAll("input:checked")].map(i=>i.value),lk:$("lk").value.trim(),img:$("im").value.trim(),nt:$("nt").value.trim(),
+    d1:dv("d1"),d2:$("dm").value=="year"?"":dv("d2"),rc:$("rc").checked,bk:$("bk").checked,s:rate,ch:+$("ch").value||0,tot:+$("tot").value||0,p:lp};
+  if(cur){Object.assign(cur,d)}else S.push({id:Date.now(),...d});
+  save();if(sub&&d.cat!=sub)sub="";render()};
+$("bkp").onclick=()=>{$("bt").value=JSON.stringify({v:1,books:S,genres:GEN,cats:GRP});$("bmsg").textContent="";armR=false;$("brest").textContent="khôi phục từ ô trên";$("bdlg").showModal()};
+$("bclose").onclick=()=>$("bdlg").close();
+$("bcopy").onclick=async()=>{const t=$("bt");t.select();let ok=false;try{await navigator.clipboard.writeText(t.value);ok=true}catch(e){try{ok=document.execCommand("copy")}catch(x){}}$("bmsg").textContent=ok?"Đã sao chép.":"Không sao chép tự động được. Hãy bấm giữ vào ô rồi chọn sao chép."};
+$("bdl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("bt").value],{type:"application/json"}));a.download="my-archive-backup.json";document.body.appendChild(a);a.click();a.remove();$("bmsg").textContent="Nếu file không tải về, hãy dùng nút sao chép."};
+$("bfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("bt").value=r.result;armR=false;$("brest").textContent="khôi phục từ ô trên";$("bmsg").textContent="Đã đọc file. Bấm khôi phục để áp dụng."};r.readAsText(f)};
+$("brest").onclick=()=>{let o;try{o=JSON.parse($("bt").value)}catch(e){$("bmsg").textContent="Mã dữ liệu không hợp lệ.";return}
+  if(!o||!Array.isArray(o.books)){$("bmsg").textContent="Không thấy danh sách truyện trong mã này.";return}
+  if(!armR){armR=true;$("brest").textContent="bấm lần nữa để thay toàn bộ dữ liệu";$("bmsg").textContent="Dữ liệu hiện tại sẽ bị thay bằng "+o.books.length+" truyện trong mã.";return}
+  armR=false;$("brest").textContent="khôi phục từ ô trên";
+  S=o.books.filter(b=>b&&b.t);if(o.genres&&typeof o.genres=="object")GEN=o.genres;if(o.cats&&typeof o.cats=="object"&&Object.keys(o.cats).length)GRP=o.cats;
+  cleanGrp();fix();save();saveG();saveC();tag="BL";sub="";fg=[];$("bmsg").textContent="Đã khôi phục "+S.length+" truyện.";render()};
+render();
+</script>
+</body>
+</html>
