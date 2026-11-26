@@ -173,8 +173,9 @@ textarea:focus{border-color:var(--fg)}
 <div class="wrap">
   <div class="top">
     <div class="crumb"><i></i><a href="index.html" style="color:inherit;text-decoration:none">home</a> <span>›</span> tài liệu nghiên cứu gay học</div>
-    <div class="btns"><button class="pill" id="bkp">sao lưu / khôi phục</button><button class="pill">↻ sync Drive</button><button class="pill dark" id="add">+ thêm truyện</button></div>
+    <div class="btns"><button class="pill" id="bkp">sao lưu / khôi phục</button><button class="pill" id="sync">☁ đăng nhập Google</button><button class="pill dark" id="add">+ thêm truyện</button></div>
   </div>
+  <p class="hint" id="syncnote" hidden></p>
   <div class="head"><h1>tài liệu nghiên cứu gay học</h1></div>
   <div class="views"><span id="vb" style="display:contents"></span><input id="q" placeholder="tìm truyện, tác giả, thể loại, sao…"></div>
   <div class="subs" id="subs"></div>
@@ -185,8 +186,8 @@ textarea:focus{border-color:var(--fg)}
   <div class="fh"><h3 id="ft">book</h3><button type="button" class="x" id="close" aria-label="Đóng">×</button></div>
   <label>Tên truyện<input type="text" id="t" required></label>
   <div class="g2">
-    <label>Tác giả<input type="text" id="au" placeholder="vd: Priest"></label>
-    <label>Couple<input type="text" id="cp" placeholder="vd: A × B"></label>
+    <label>Tác giả<input type="text" id="au" placeholder="Tên tác giả"></label>
+    <label>Couple<input type="text" id="cp" placeholder="Tên couple"></label>
   </div>
   <div class="g2">
     <label>Trạng thái xuất bản<select id="pub"><option value="0">Chưa có thông tin</option><option value="1">Đã xuất bản</option><option value="2">Đang xuất bản</option></select></label>
@@ -264,7 +265,7 @@ function card(b){
   else{low=`<div class="stars">${stars(b.s)}</div>`+(b.d1||b.d2?`<div class="cap">${range(b)}</div>`:"")}
   const bd=b.bk?'<span class="bd blk">blacklist</span>':b.rc?'<span class="bd rec">đề cử</span>':"";
   return `<div class="book${b.bk?" bl":""}"><div class="cv"><button class="cover" data-id="${b.id}" style="background:linear-gradient(160deg,${g[0]},${g[1]})"><span class="ct">${esc(b.t)}</span>${b.au?`<span class="ca">${esc(b.au)}</span>`:""}${b.img?`<img src="${esc(imgUrl(b.img))}" referrerpolicy="no-referrer" loading="lazy" alt="">`:""}</button>${bd}</div>
-  <div class="bt">${esc(b.t)}</div><div class="au">${esc(b.au)}${b.cp?" · "+esc(b.cp):""}</div>${low}${b.nt?`<button class="rev" data-id="${b.id}" data-rv="1">1 review</button>`:""}</div>`}
+  <div class="bt">${esc(b.t)}</div><div class="au">${esc(b.au)}</div>${low}${b.nt?`<button class="rev" data-id="${b.id}" data-rv="1">1 review</button>`:""}</div>`}
 function sorted(a){const c=[...a];
   if(view=="a to z")c.sort((x,y)=>x.t.localeCompare(y.t,"vi"));
   if(view=="top rated")c.sort((x,y)=>y.s-x.s);
@@ -336,12 +337,13 @@ $("f").onsubmit=()=>{const dv=id=>{const v=$(id).value;return $("dm").value=="ye
     d1:dv("d1"),d2:$("dm").value=="year"?"":dv("d2"),rc:$("rc").checked,bk:$("bk").checked,s:rate,ch:+$("ch").value||0,tot:+$("tot").value||0,p:lp};
   if(cur){Object.assign(cur,d)}else S.push({id:Date.now(),...d});
   save();if(sub&&d.cat!=sub)sub="";render()};
-$("bkp").onclick=()=>{$("bt").value=JSON.stringify({v:1,books:S,genres:GEN,cats:GRP});$("bmsg").textContent="";armR=false;$("brest").textContent="khôi phục từ ô trên";$("bdlg").showModal()};
+$("bkp").onclick=()=>{$("bt").value=JSON.stringify({v:2,keys:{archive_v1:JSON.stringify(S),archive_gen:JSON.stringify(GEN),archive_cats:JSON.stringify(GRP)}});$("bmsg").textContent="";armR=false;$("brest").textContent="khôi phục từ ô trên";$("bdlg").showModal()};
 $("bclose").onclick=()=>$("bdlg").close();
 $("bcopy").onclick=async()=>{const t=$("bt");t.select();let ok=false;try{await navigator.clipboard.writeText(t.value);ok=true}catch(e){try{ok=document.execCommand("copy")}catch(x){}}$("bmsg").textContent=ok?"Đã sao chép.":"Không sao chép tự động được. Hãy bấm giữ vào ô rồi chọn sao chép."};
 $("bdl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("bt").value],{type:"application/json"}));a.download="my-archive-backup.json";document.body.appendChild(a);a.click();a.remove();$("bmsg").textContent="Nếu file không tải về, hãy dùng nút sao chép."};
 $("bfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("bt").value=r.result;armR=false;$("brest").textContent="khôi phục từ ô trên";$("bmsg").textContent="Đã đọc file. Bấm khôi phục để áp dụng."};r.readAsText(f)};
 $("brest").onclick=()=>{let o;try{o=JSON.parse($("bt").value)}catch(e){$("bmsg").textContent="Mã dữ liệu không hợp lệ.";return}
+  if(o&&o.keys){try{o={books:JSON.parse(o.keys.archive_v1||"[]"),genres:JSON.parse(o.keys.archive_gen||"{}"),cats:JSON.parse(o.keys.archive_cats||"{}")}}catch(e){o=null}}
   if(!o||!Array.isArray(o.books)){$("bmsg").textContent="Không thấy danh sách truyện trong mã này.";return}
   if(!armR){armR=true;$("brest").textContent="bấm lần nữa để thay toàn bộ dữ liệu";$("bmsg").textContent="Dữ liệu hiện tại sẽ bị thay bằng "+o.books.length+" truyện trong mã.";return}
   armR=false;$("brest").textContent="khôi phục từ ô trên";
@@ -349,5 +351,6 @@ $("brest").onclick=()=>{let o;try{o=JSON.parse($("bt").value)}catch(e){$("bmsg")
   cleanGrp();fix();save();saveG();saveC();tag="BL";sub="";fg=[];$("bmsg").textContent="Đã khôi phục "+S.length+" truyện.";render()};
 render();
 </script>
+<script type="module" src="sync.js"></script>
 </body>
 </html>
