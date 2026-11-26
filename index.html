@@ -159,6 +159,21 @@ a.tool-slip:hover .tool-arrow{
   color:var(--fg);
 }
 
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;cursor:pointer;color:inherit}
+.pill{border:1px solid var(--soft);background:none;border-radius:99px;padding:6px 14px;font-size:16px}
+.pill.dark{background:var(--btn);color:var(--btnfg);border-color:var(--btn)}
+.hint{font-size:16px;color:var(--mute);margin:10px 0 0}
+dialog{border:1px solid var(--soft);border-radius:20px;background:var(--bg);color:var(--fg);padding:0;width:min(560px,94vw);max-height:92vh}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.bf{padding:22px 24px;display:grid;gap:14px}
+.fh{display:flex;justify-content:space-between;align-items:center}
+.fh h3{margin:0;font:600 32px Fraunces,Georgia,serif}
+.x{background:none;border:0;font-size:22px;line-height:1}
+.lbl{display:grid;gap:4px;font-size:16px;color:var(--mute)}
+textarea{font:inherit;font-size:19px;color:var(--fg);background:none;border:1px solid var(--soft);border-radius:12px;padding:8px 10px;resize:vertical;width:100%;outline:none}
+.act2{display:flex;gap:10px;flex-wrap:wrap}
 @media (max-width:640px){
   .wrap{padding:20px 18px}
   body{font-size:19px}
@@ -175,7 +190,11 @@ a.tool-slip:hover .tool-arrow{
 </head>
 <body>
 <div class="wrap">
-  <div class="crumb"><i></i>home</div>
+  <div class="top">
+    <div class="crumb"><i></i>home</div>
+    <div class="btns"><button class="pill" id="bkp">sao lưu / khôi phục</button><button class="pill" id="sync">☁ đăng nhập Google</button></div>
+  </div>
+  <p class="hint" id="syncnote" hidden></p>
   <h1>ltqspace</h1>
   <p class="sub">web lộn xộn của LTQ</p>
   
@@ -211,9 +230,42 @@ a.tool-slip:hover .tool-arrow{
   </div>
 </div>
 
+<dialog id="bdlg"><div class="bf">
+  <div class="fh"><h3>sao lưu &amp; khôi phục</h3><button type="button" class="x" id="bclose" aria-label="Đóng">×</button></div>
+  <p class="hint">Dữ liệu chỉ nằm trong trình duyệt này. Hãy sao chép mã bên dưới (hoặc tải file) rồi cất vào Drive hay ghi chú để giữ an toàn. Mã này gồm toàn bộ dữ liệu của cả web.</p>
+  <textarea id="bt" rows="6" spellcheck="false"></textarea>
+  <div class="act2"><button type="button" class="pill" id="bcopy">sao chép</button><button type="button" class="pill" id="bdl">tải file .json</button></div>
+  <label class="lbl">Khôi phục từ file<input type="file" id="bfile" accept=".json,application/json"></label>
+  <p class="hint">Hoặc dán mã đã lưu vào ô trên, rồi bấm khôi phục.</p>
+  <div class="act2"><button type="button" class="pill dark" id="brest">khôi phục từ ô trên</button></div>
+  <p class="hint" id="bmsg"></p>
+</div></dialog>
+
 <script>
 document.querySelectorAll("[data-soon]").forEach(a=>a.addEventListener("click",e=>e.preventDefault()));
 try{const b=JSON.parse(localStorage.getItem("archive_v1"));if(Array.isArray(b))document.getElementById("nb").textContent=b.length+" truyện"}catch(e){}
+
+const $=id=>document.getElementById(id);
+const PRE=["archive_"];
+let armR=false;
+const mine=()=>{const o={};try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(PRE.some(p=>k.startsWith(p)))o[k]=localStorage.getItem(k)}}catch(e){}return o};
+const count=()=>{try{const b=JSON.parse(localStorage.getItem("archive_v1"));if(Array.isArray(b))$("nb").textContent=b.length+" truyện"}catch(e){}};
+const resetR=()=>{armR=false;$("brest").textContent="khôi phục từ ô trên"};
+$("bkp").onclick=()=>{$("bt").value=JSON.stringify({v:2,keys:mine()});$("bmsg").textContent="";resetR();$("bdlg").showModal()};
+$("bclose").onclick=()=>$("bdlg").close();
+$("bcopy").onclick=async()=>{const t=$("bt");t.select();let ok=false;try{await navigator.clipboard.writeText(t.value);ok=true}catch(e){try{ok=document.execCommand("copy")}catch(x){}}$("bmsg").textContent=ok?"Đã sao chép.":"Không sao chép tự động được. Hãy bấm giữ vào ô rồi chọn sao chép."};
+$("bdl").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("bt").value],{type:"application/json"}));a.download="ltqspace-backup.json";document.body.appendChild(a);a.click();a.remove();$("bmsg").textContent="Nếu file không tải về, hãy dùng nút sao chép."};
+$("bfile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{$("bt").value=r.result;resetR();$("bmsg").textContent="Đã đọc file. Bấm khôi phục để áp dụng."};r.readAsText(f)};
+$("brest").onclick=()=>{let o;try{o=JSON.parse($("bt").value)}catch(e){$("bmsg").textContent="Mã dữ liệu không hợp lệ.";return}
+  if(o&&Array.isArray(o.books))o={keys:{archive_v1:JSON.stringify(o.books),archive_gen:JSON.stringify(o.genres||{}),archive_cats:JSON.stringify(o.cats||{})}};
+  if(!o||!o.keys||typeof o.keys!="object"){$("bmsg").textContent="Không thấy dữ liệu hợp lệ trong mã này.";return}
+  const ks=Object.keys(o.keys).filter(k=>PRE.some(p=>k.startsWith(p))&&typeof o.keys[k]=="string");
+  try{if(o.keys.archive_v1&&!Array.isArray(JSON.parse(o.keys.archive_v1)))throw 0}catch(e){$("bmsg").textContent="Danh sách truyện trong mã bị lỗi.";return}
+  if(!ks.length){$("bmsg").textContent="Không thấy dữ liệu hợp lệ trong mã này.";return}
+  if(!armR){armR=true;$("brest").textContent="bấm lần nữa để thay toàn bộ dữ liệu";$("bmsg").textContent="Dữ liệu hiện tại sẽ bị thay bằng "+ks.length+" mục trong mã.";return}
+  resetR();try{ks.forEach(k=>localStorage.setItem(k,o.keys[k]))}catch(e){$("bmsg").textContent="Không ghi được dữ liệu vào trình duyệt.";return}
+  count();$("bmsg").textContent="Đã khôi phục. Mở trang truyện để xem lại."};
 </script>
+<script type="module" src="sync.js"></script>
 </body>
 </html>
